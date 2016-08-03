@@ -1,0 +1,293 @@
+;Copyright (c) 2016 Hubert Jarosz
+;
+;This software is provided 'as-is', without any express or implied
+;warranty. In no event will the authors be held liable for any damages
+;arising from the use of this software.
+;
+;Permission is granted to anyone to use this software for any purpose,
+;including commercial applications, and to alter it and redistribute it
+;freely, subject to the following restrictions:
+;
+;1. The origin of this software must not be misrepresented; you must not
+;   claim that you wrote the original software. If you use this software
+;   in a product, an acknowledgement in the product documentation would be
+;   appreciated but is not required.
+;2. Altered source versions must be plainly marked as such, and must not be
+;   misrepresented as being the original software.
+;3. This notice may not be removed or altered from any source distribution.
+
+[gd_scene load_steps=7 format=1]
+
+[ext_resource path="res://boxie.gd" type="Script" id=1]
+[ext_resource path="res://camera.gd" type="Script" id=2]
+
+[sub_resource type="BoxShape" id=1]
+
+extents = Vector3( 1, 1, 1 )
+
+[sub_resource type="BoxShape" id=2]
+
+extents = Vector3( 1, 1, 1 )
+
+[sub_resource type="BoxShape" id=3]
+
+extents = Vector3( 1, 1, 1 )
+
+[sub_resource type="BoxShape" id=4]
+
+extents = Vector3( 1, 1, 1 )
+
+[node name="Spatial" type="Spatial"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="draggable-box" type="KinematicBody" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 2, -6.46106e-09, -2.6077e-08, 6.46106e-09, 2, -3.7253e-09, 2.6077e-08, 3.7253e-09, 2, -26.8524, -4.62034, -24.5695 )
+input/ray_pickable = true
+input/capture_on_drag = false
+shape_count = 1
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+collide_with/static = true
+collide_with/kinematic = true
+collide_with/rigid = true
+collide_with/character = true
+collision/margin = 0.001
+script/script = ExtResource( 1 )
+
+[node name="TestCube" type="TestCube" parent="draggable-box"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, -3.09956e-08, 1.67638e-08, -1.53959e-08, 1, 2.04891e-08, 4.65661e-09, 1.49012e-08, 1, 0, 1.90735e-06, 3.8147e-06 )
+layers = 1
+geometry/visible = true
+geometry/material_override = null
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="draggable-box"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Camera" type="Camera" parent="."]
+
+editor/display_folded = true
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 0.883619, 0.165217, -0.438089, -0.0134379, 0.944235, 0.328997, 0.468015, -0.284821, 0.836564, -34.1346, -0.751411, -11.1121 )
+projection = 0
+fov = 60.0
+near = 0.1
+far = 100.0
+keep_aspect = 1
+current = false
+visible_layers = 1048575
+environment = null
+h_offset = 0.0
+v_offset = 0.0
+script/script = ExtResource( 2 )
+
+[node name="aim-ray" type="RayCast" parent="Camera"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+enabled = true
+cast_to = Vector3( 0, -1, 0 )
+layer_mask = 1
+type_mask = 2
+
+[node name="collision-ray" type="RayCast" parent="Camera"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+enabled = true
+cast_to = Vector3( 0, -1, 0 )
+layer_mask = 2
+type_mask = 31
+
+[node name="aim" type="RichTextLabel" parent="Camera"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = -2.0
+margin/right = 40.0
+margin/bottom = 38.0
+bbcode/enabled = false
+bbcode/bbcode = "X"
+visible_characters = -1
+
+[node name="SpotLight" type="DirectionalLight" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 0.698825, -0.314575, 0.642407, 0.0215667, 0.906961, 0.420662, -0.714968, -0.280114, 0.640591, -16.6304, 14.3839, -5.31601 )
+layers = 1
+params/enabled = true
+params/editor_only = false
+params/bake_mode = 3
+params/energy = 1.0
+colors/diffuse = Color( 1, 1, 1, 1 )
+colors/specular = Color( 1, 1, 1, 1 )
+shadow/shadow = false
+shadow/darkening = 0.0
+shadow/z_offset = 0.05
+shadow/z_slope_scale = 0.0
+shadow/esm_multiplier = 60.0
+shadow/blur_passes = 1.0
+projector = null
+operator = 0
+shadow/mode = 0
+shadow/max_distance = 0.0
+shadow/split_weight = 0.5
+shadow/zoffset_scale = 2.0
+
+[node name="front-wall" type="StaticBody" parent="."]
+
+editor/display_folded = true
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 14.7269, -8.5216e-08, 4.47035e-08, 8.84756e-08, 14.727, 8.9407e-08, -2.98023e-08, -2.68221e-07, 14.7269, -27.5482, -21.3164, -16.1942 )
+input/ray_pickable = true
+input/capture_on_drag = false
+shape_count = 1
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Transform( 1, 1.60944e-08, 1.39698e-08, 3.0268e-09, 1, 5.7742e-08, -5.58794e-09, 2.04891e-08, 1, -0.0442822, 1.73279, -1.63748 )
+shapes/0/trigger = false
+collision/layers = 3
+collision/mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="front-wall"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 1.60944e-08, 1.39698e-08, 3.0268e-09, 1, 5.7742e-08, -5.58794e-09, 2.04891e-08, 1, -0.0442822, 1.73279, -1.63748 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="wall" type="TestCube" parent="front-wall"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 0.999999, 1.5134e-08, 1.49012e-08, 2.06637e-09, 1, 5.96046e-08, -3.72529e-09, 1.86265e-08, 1, -0.0442822, 1.73279, -1.63748 )
+layers = 1
+geometry/visible = true
+geometry/material_override = null
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+
+[node name="side-wall" type="StaticBody" parent="."]
+
+editor/display_folded = true
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 14.7269, -6.98492e-08, 4.47035e-08, 8.89413e-08, 14.727, 1.19209e-07, -2.98023e-08, -2.38419e-07, 14.7269, -27.5482, -21.3164, -16.1942 )
+input/ray_pickable = true
+input/capture_on_drag = false
+shape_count = 1
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Transform( 0.903088, 1.37079e-08, 4.65661e-09, -5.67525e-09, 0.903083, 2.23517e-08, 0, 1.67638e-08, 0.903089, -1.63383, 1.85735, 0.259994 )
+shapes/0/trigger = false
+collision/layers = 3
+collision/mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="side-wall"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 0.903088, 1.37079e-08, 4.65661e-09, -5.67525e-09, 0.903083, 2.23517e-08, 0, 1.67638e-08, 0.903089, -1.63383, 1.85735, 0.259994 )
+shape = SubResource( 3 )
+trigger = false
+_update_shape_index = 0
+
+[node name="wall" type="TestCube" parent="side-wall"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 0.903088, 1.46392e-08, 4.65661e-09, -4.77303e-09, 0.903083, 2.42144e-08, 0, 1.67638e-08, 0.903089, -1.63383, 1.85735, 0.259994 )
+layers = 1
+geometry/visible = true
+geometry/material_override = null
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+
+[node name="floor" type="StaticBody" parent="."]
+
+editor/display_folded = true
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 14.7269, -9.03389e-08, 5.96046e-08, 9.03383e-08, 14.727, 2.08615e-07, -5.96046e-08, -2.08616e-07, 14.7269, -27.5482, -21.3164, -16.1942 )
+input/ray_pickable = true
+input/capture_on_drag = false
+shape_count = 1
+shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Transform( 1, 2.03727e-10, 3.72529e-09, 3.63798e-09, 1, -1.67638e-08, 1.86265e-09, -7.45058e-09, 1, 0, -2.38419e-07, 4.76837e-07 )
+shapes/0/trigger = false
+collision/layers = 3
+collision/mask = 1
+friction = 1.0
+bounce = 0.0
+constant_linear_velocity = Vector3( 0, 0, 0 )
+constant_angular_velocity = Vector3( 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="floor"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 2.03727e-10, 3.72529e-09, 3.63798e-09, 1, -1.67638e-08, 1.86265e-09, -7.45058e-09, 1, 0, -2.38419e-07, 4.76837e-07 )
+shape = SubResource( 4 )
+trigger = false
+_update_shape_index = 0
+
+[node name="floor" type="TestCube" parent="floor"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 2.09548e-09, -9.31323e-10, -1.16415e-10, 1, -3.72529e-09, 1.86265e-09, -1.86265e-09, 1, 0, -2.38419e-07, 3.57628e-07 )
+layers = 1
+geometry/visible = true
+geometry/material_override = null
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
